@@ -23,7 +23,7 @@ install.packages("devtools")
 library("devtools")
 
 # Install "scHiCSRS" package from github.
-install_github("Queen0044/scHiCSRS")
+install_github("sl-lin/scHiCSRS")
 ```
 
 ## Example
