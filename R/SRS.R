@@ -43,6 +43,7 @@
 #'
 #' @examples
 #' SRS(scHiC, windowsize=2, nbins=61, learning_rate = 0.0001,epochs = 100)
+use_condaenv("r-tensorflow")
 
 SRS <- function(scHiC, expected, windowsize=2, nbins, lambda1 = NULL, lambda2 = 1e10, initA = NULL,
 
