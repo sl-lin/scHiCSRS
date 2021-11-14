@@ -12,6 +12,10 @@ representation smoothing approach.
 
 ## Installation
 
+Rtools4 (https://cran.r-project.org/bin/windows/Rtools/) and Anaconda/Miniconda (https://docs.conda.io/en/latest/miniconda.html) are required for scHiCSRS. It's recommanded to install them first. 
+
+For windows system, one may need to download Microsoft Visual C++ (https://docs.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist?view=msvc-170).
+
 The scHiCSRS package has the following R-package dependencies: SAVER,
 keras, tensorflow, Rtsne, ggplot2, ggpubr, and mclust. The dependent
 packages will be automatically installed along with scHiCSRS. You can
