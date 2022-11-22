@@ -110,6 +110,35 @@ orga_mix <- function(observed, imputed) {
 # }
 
 
+# dmix <- function(x,pars) {
+#   output=c()
+#   G=length(pars)/3
+# d = diff(pars[(G+1):(2*G)])
+
+#ind = c(1)  
+#  si = 10
+#  k = 1
+#  while(k < (G-1)){
+#    if(si * d[k] <= d[k+1]){
+#      ind = c(ind, k+1)
+#    } else {
+#      break
+#    }
+#    k = k+1
+#  }#
+
+   # for (j in 1:length(x)) {
+   #     comp = c()
+   #     for (i in 1:G) {
+   #         comp[i] = pars[i] * dnorm(x[j], mean = pars[i + G],
+   #             sd = sqrt(pars[i + 2 * G]))
+   #     }
+   #     output[j] = sum(comp[ind])/sum(comp)
+   # }
+   # return(output)
+#}
+
+
 get_mix_parameters <-
   function (count, nmix, ncores = 1)
   {
