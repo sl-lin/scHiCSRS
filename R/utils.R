@@ -248,7 +248,7 @@ calc.size.factor <- function(x) {
 
 clean.data <- function(x) {
 
-  if (!(grepl("matrix", class(x), ignore.case = TRUE))) {
+  if (!sum(grepl("matrix", class(x), ignore.case = TRUE))) {
 
     x <- Matrix::Matrix(as.matrix(x))
 
