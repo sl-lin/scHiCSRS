@@ -19,48 +19,77 @@ get_mix <- function(xdata) {
 }
 
 
+# dmix <- function(x,pars) {
+#   output=c()
+#   G=length(pars)/3
+#   if(G==1){ ### G=1
+#     output=rep(1, length(x))
+#     return(output)
+#   }else if(G==2){ ### G=2
+#     for (j in 1:length(x)) {
+#       comp=c()
+#       for (i in 1:G) {
+#         comp[i]=pars[i]*dnorm(x[j], mean = pars[i+G], sd=sqrt(pars[i+2*G]))
+#       }
+#       output[j]=sum(comp[1])/sum(comp)
+#     }
+#     return(output)
+#   }else{ ### G>=3
+#     d=rep(0,(G-1))
+#     for (gg in 1:(G-1)) {
+#       d[gg]=pars[G+gg+1]-pars[G+gg]
+#     }
+#     
+#     g=1
+#     ind=NULL
+#     while (g < G) {
+#       if(10*d[g] > d[g+1]){
+#         ind=c(ind,g)
+#         break
+#       }else{
+#         ind=c(ind, g, g+1)
+#       }
+#       g=g+1
+#     }
+#     
+#     for (j in 1:length(x)) {
+#       comp=c()
+#       for (i in 1:G) {
+#         comp[i]=pars[i]*dnorm(x[j], mean = pars[i+G], sd=sqrt(pars[i+2*G]))
+#       }
+#       output[j]=sum(comp[ind])/sum(comp)
+#     }
+#     return(output)
+#   }#end of else
+# }
+# 
+
 dmix <- function(x,pars) {
-  output=c()
-  G=length(pars)/3
-  if(G==1){ ### G=1
-    output=rep(1, length(x))
-    return(output)
-  }else if(G==2){ ### G=2
-    for (j in 1:length(x)) {
-      comp=c()
-      for (i in 1:G) {
-        comp[i]=pars[i]*dnorm(x[j], mean = pars[i+G], sd=sqrt(pars[i+2*G]))
-      }
-      output[j]=sum(comp[1])/sum(comp)
-    }
-    return(output)
-  }else{ ### G>=3
-    d=rep(0,(G-1))
-    for (gg in 1:(G-1)) {
-      d[gg]=pars[G+gg+1]-pars[G+gg]
-    }
+   output=c()
+   G=length(pars)/3
+   d = diff(pars[(G+1):(2*G)])
 
-    g=1
-    ind=NULL
-    while (g < G) {
-      if(10*d[g] > d[g+1]){
-        ind=c(ind,g)
-        break
-      }else{
-        ind=c(ind, g, g+1)
-      }
-      g=g+1
+  ind = c(1)  
+  si = 10
+  k = 1
+  while(k < (G-1)){
+   if(si * d[k] <= d[k+1]){
+      ind = c(ind, k+1)
+    } else {
+      break
     }
+    k = k+1
+  }
 
     for (j in 1:length(x)) {
-      comp=c()
-      for (i in 1:G) {
-        comp[i]=pars[i]*dnorm(x[j], mean = pars[i+G], sd=sqrt(pars[i+2*G]))
-      }
-      output[j]=sum(comp[ind])/sum(comp)
+        comp = c()
+        for (i in 1:G) {
+            comp[i] = pars[i] * dnorm(x[j], mean = pars[i + G],
+                sd = sqrt(pars[i + 2 * G]))
+        }
+        output[j] = sum(comp[ind])/sum(comp)
     }
     return(output)
-  }#end of else
 }
 
 
@@ -80,63 +109,6 @@ orga_mix <- function(observed, imputed) {
 
     return(prob)
 }
-
-
-
-# dmix <- function(x,pars) {
-#   output=c()
-#   G=length(pars)/3
-#   d=rep(0,(G-1))
-#   for (gg in 1:(G-1)) {
-#     d[gg]=pars[G+gg+1]-pars[G+gg]
-#   }
-#   if((10*d[1])<=d[2]){
-#     ind=c(1,2)
-#   }else{
-#     if((10*d[2])<=d[3]){
-#       ind=c(1,2,3)
-#     }else{
-#       ind=c(1)
-#     }
-#    }
-#   for (j in 1:length(x)) {
-#     comp=c()
-#     for (i in 1:G) {
-#       comp[i]=pars[i]*dnorm(x[j], mean = pars[i+G], sd=sqrt(pars[i+2*G]))
-#     }
-#     output[j]=sum(comp[ind])/sum(comp)
-#   }
-#   return(output)
-# }
-
-
-# dmix <- function(x,pars) {
-#   output=c()
-#   G=length(pars)/3
-# d = diff(pars[(G+1):(2*G)])
-
-#ind = c(1)  
-#  si = 10
-#  k = 1
-#  while(k < (G-1)){
-#    if(si * d[k] <= d[k+1]){
-#      ind = c(ind, k+1)
-#    } else {
-#      break
-#    }
-#    k = k+1
-#  }#
-
-   # for (j in 1:length(x)) {
-   #     comp = c()
-   #     for (i in 1:G) {
-   #         comp[i] = pars[i] * dnorm(x[j], mean = pars[i + G],
-   #             sd = sqrt(pars[i + 2 * G]))
-   #     }
-   #     output[j] = sum(comp[ind])/sum(comp)
-   # }
-   # return(output)
-#}
 
 
 get_mix_parameters <-
