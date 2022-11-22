@@ -7,7 +7,7 @@
 #' 2D single-cell contact matrix, or a 3D (\eqn{n\times n\times k}) array that has k matrices of dimension
 #' \eqn{n\times n}. scHiCSRS automatically transforms these two types of input into a matrix with each
 #' column being the vector of upper triangular matrix of a single-cell. For a single-cell matrix of
-#' size \eqn{n \times n}, the length of the vector should be \eqn{n\times(n-1)/2}. We only need the upper
+#' size \eqn{n \times n}, the length of the vector should be \eqn{n\times(n+1)/2} (with diagnal). We only need the upper
 #' triangular matrix because the Hi-C matrix are symmetrical.
 #' @param expected Underline true counts of the simulated data. For real data analysis, just set it as NULL.It takes
 #'three formats that is the same as scHiC.
@@ -68,7 +68,7 @@ SRS <- function(scHiC, expected, windowsize=2, nbins, lambda1 = NULL, lambda2 = 
     stop("The input type must be a matrix, 3D array or a list of 2D matrix.")
   }
 
-  if (nrow(single) != (nbins*(nbins-1)/2)){
+  if (nrow(single) != (nbins*(nbins+1)/2)){
     stop("The provided n and single cells do not match in size!")
   }
 
